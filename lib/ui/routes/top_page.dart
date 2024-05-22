@@ -1,46 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:nyakunyaku/repositories/deepl_repository.dart';
 
-class TopPage extends StatefulWidget {
-  const TopPage({super.key});
+class TopPage extends HookConsumerWidget {
+  TopPage({super.key});
 
-  @override
-  State<TopPage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<TopPage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+  final deeplRepository = DeepLRepository();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final textEditingController = useTextEditingController();
+    final translation = useState<String>('');
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Main Page'),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text('翻訳したい文章を入力してください'),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: TextField(
+                    controller: textEditingController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: '翻訳したい文章を入力してください',
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                ElevatedButton(
+                  onPressed: () async {
+                    translation.value = await deeplRepository.translate(
+                      textEditingController.text,
+                      SourceLang.en,
+                    );
+                  },
+                  child: const Text('翻訳'),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
+            const SizedBox(height: 16),
+            const Text('翻訳結果'),
+            Text(translation.value),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
       ),
     );
   }
