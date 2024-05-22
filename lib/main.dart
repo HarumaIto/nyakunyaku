@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:nyakunyaku/ui/routes/settings_page.dart';
 import 'package:nyakunyaku/ui/routes/top_page.dart';
 
 Future<void> main() async {
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => TopPage(),
+        '/settings': (context) => SettingsPage(),
       },
     );
   }
