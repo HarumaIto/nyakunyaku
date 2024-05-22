@@ -17,6 +17,7 @@ class NotionRepository {
     // クエリを空にすると全てのページを取得できる
     final requestBody = json.encode({
       'query': '',
+      'filter': {"value": "page", "property": "object"},
     });
 
     final response = await http.post(
