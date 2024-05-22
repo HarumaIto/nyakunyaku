@@ -26,4 +26,17 @@ class NotionRepository {
     );
     return response;
   }
+
+  Future<Response> getAllDatabase() async {
+    final body = json.encode({
+      'query': '',
+      'filter': {"value": "database", "property": "object"},
+    });
+    final response = await http.post(
+      Uri.parse('$url/search'),
+      headers: headers,
+      body: body,
+    );
+    return response;
+  }
 }

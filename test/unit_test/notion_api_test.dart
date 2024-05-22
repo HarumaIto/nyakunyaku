@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nyakunyaku/repositories/notion_repository.dart';
@@ -11,6 +13,13 @@ void main() {
     NotionRepository notionRepository = NotionRepository();
     final response = await notionRepository.getAllPages();
     print(response.body);
+    expect(response.statusCode, 200);
+  });
+
+  test('Get Notion Databases', () async {
+    NotionRepository notionRepository = NotionRepository();
+    final response = await notionRepository.getAllDatabase();
+    print(json.decode(response.body)['results'][0]['title']);
     expect(response.statusCode, 200);
   });
 }

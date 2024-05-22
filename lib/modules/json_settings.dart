@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:nyakunyaku/repositories/deepl_repository.dart';
 
 // 自動生成コマンド: flutter pub run build_runner build --delete-conflicting-outputs
 
