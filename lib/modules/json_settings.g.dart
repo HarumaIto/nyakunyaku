@@ -10,12 +10,15 @@ _$JsonSettingsImpl _$$JsonSettingsImplFromJson(Map<String, dynamic> json) =>
     _$JsonSettingsImpl(
       sourceLang: json['sourceLang'] as String? ?? 'en',
       targetLang: json['targetLang'] as String? ?? 'ja',
-      targetDatabaseId: json['targetDatabaseId'] as String? ?? '',
+      targetDatabase: json['targetDatabase'] == null
+          ? null
+          : JsonDatabase.fromJson(
+              json['targetDatabase'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$JsonSettingsImplToJson(_$JsonSettingsImpl instance) =>
     <String, dynamic>{
       'sourceLang': instance.sourceLang,
       'targetLang': instance.targetLang,
-      'targetDatabaseId': instance.targetDatabaseId,
+      'targetDatabase': instance.targetDatabase,
     };

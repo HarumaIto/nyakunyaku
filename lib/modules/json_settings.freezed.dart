@@ -22,7 +22,7 @@ JsonSettings _$JsonSettingsFromJson(Map<String, dynamic> json) {
 mixin _$JsonSettings {
   String get sourceLang => throw _privateConstructorUsedError;
   String get targetLang => throw _privateConstructorUsedError;
-  String get targetDatabaseId => throw _privateConstructorUsedError;
+  JsonDatabase? get targetDatabase => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -36,7 +36,10 @@ abstract class $JsonSettingsCopyWith<$Res> {
           JsonSettings value, $Res Function(JsonSettings) then) =
       _$JsonSettingsCopyWithImpl<$Res, JsonSettings>;
   @useResult
-  $Res call({String sourceLang, String targetLang, String targetDatabaseId});
+  $Res call(
+      {String sourceLang, String targetLang, JsonDatabase? targetDatabase});
+
+  $JsonDatabaseCopyWith<$Res>? get targetDatabase;
 }
 
 /// @nodoc
@@ -54,7 +57,7 @@ class _$JsonSettingsCopyWithImpl<$Res, $Val extends JsonSettings>
   $Res call({
     Object? sourceLang = null,
     Object? targetLang = null,
-    Object? targetDatabaseId = null,
+    Object? targetDatabase = freezed,
   }) {
     return _then(_value.copyWith(
       sourceLang: null == sourceLang
@@ -65,11 +68,23 @@ class _$JsonSettingsCopyWithImpl<$Res, $Val extends JsonSettings>
           ? _value.targetLang
           : targetLang // ignore: cast_nullable_to_non_nullable
               as String,
-      targetDatabaseId: null == targetDatabaseId
-          ? _value.targetDatabaseId
-          : targetDatabaseId // ignore: cast_nullable_to_non_nullable
-              as String,
+      targetDatabase: freezed == targetDatabase
+          ? _value.targetDatabase
+          : targetDatabase // ignore: cast_nullable_to_non_nullable
+              as JsonDatabase?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $JsonDatabaseCopyWith<$Res>? get targetDatabase {
+    if (_value.targetDatabase == null) {
+      return null;
+    }
+
+    return $JsonDatabaseCopyWith<$Res>(_value.targetDatabase!, (value) {
+      return _then(_value.copyWith(targetDatabase: value) as $Val);
+    });
   }
 }
 
@@ -81,7 +96,11 @@ abstract class _$$JsonSettingsImplCopyWith<$Res>
       __$$JsonSettingsImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String sourceLang, String targetLang, String targetDatabaseId});
+  $Res call(
+      {String sourceLang, String targetLang, JsonDatabase? targetDatabase});
+
+  @override
+  $JsonDatabaseCopyWith<$Res>? get targetDatabase;
 }
 
 /// @nodoc
@@ -97,7 +116,7 @@ class __$$JsonSettingsImplCopyWithImpl<$Res>
   $Res call({
     Object? sourceLang = null,
     Object? targetLang = null,
-    Object? targetDatabaseId = null,
+    Object? targetDatabase = freezed,
   }) {
     return _then(_$JsonSettingsImpl(
       sourceLang: null == sourceLang
@@ -108,10 +127,10 @@ class __$$JsonSettingsImplCopyWithImpl<$Res>
           ? _value.targetLang
           : targetLang // ignore: cast_nullable_to_non_nullable
               as String,
-      targetDatabaseId: null == targetDatabaseId
-          ? _value.targetDatabaseId
-          : targetDatabaseId // ignore: cast_nullable_to_non_nullable
-              as String,
+      targetDatabase: freezed == targetDatabase
+          ? _value.targetDatabase
+          : targetDatabase // ignore: cast_nullable_to_non_nullable
+              as JsonDatabase?,
     ));
   }
 }
@@ -122,7 +141,7 @@ class _$JsonSettingsImpl implements _JsonSettings {
   const _$JsonSettingsImpl(
       {this.sourceLang = 'en',
       this.targetLang = 'ja',
-      this.targetDatabaseId = ''});
+      this.targetDatabase = null});
 
   factory _$JsonSettingsImpl.fromJson(Map<String, dynamic> json) =>
       _$$JsonSettingsImplFromJson(json);
@@ -135,11 +154,11 @@ class _$JsonSettingsImpl implements _JsonSettings {
   final String targetLang;
   @override
   @JsonKey()
-  final String targetDatabaseId;
+  final JsonDatabase? targetDatabase;
 
   @override
   String toString() {
-    return 'JsonSettings(sourceLang: $sourceLang, targetLang: $targetLang, targetDatabaseId: $targetDatabaseId)';
+    return 'JsonSettings(sourceLang: $sourceLang, targetLang: $targetLang, targetDatabase: $targetDatabase)';
   }
 
   @override
@@ -151,14 +170,14 @@ class _$JsonSettingsImpl implements _JsonSettings {
                 other.sourceLang == sourceLang) &&
             (identical(other.targetLang, targetLang) ||
                 other.targetLang == targetLang) &&
-            (identical(other.targetDatabaseId, targetDatabaseId) ||
-                other.targetDatabaseId == targetDatabaseId));
+            (identical(other.targetDatabase, targetDatabase) ||
+                other.targetDatabase == targetDatabase));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, sourceLang, targetLang, targetDatabaseId);
+      Object.hash(runtimeType, sourceLang, targetLang, targetDatabase);
 
   @JsonKey(ignore: true)
   @override
@@ -178,7 +197,7 @@ abstract class _JsonSettings implements JsonSettings {
   const factory _JsonSettings(
       {final String sourceLang,
       final String targetLang,
-      final String targetDatabaseId}) = _$JsonSettingsImpl;
+      final JsonDatabase? targetDatabase}) = _$JsonSettingsImpl;
 
   factory _JsonSettings.fromJson(Map<String, dynamic> json) =
       _$JsonSettingsImpl.fromJson;
@@ -188,7 +207,7 @@ abstract class _JsonSettings implements JsonSettings {
   @override
   String get targetLang;
   @override
-  String get targetDatabaseId;
+  JsonDatabase? get targetDatabase;
   @override
   @JsonKey(ignore: true)
   _$$JsonSettingsImplCopyWith<_$JsonSettingsImpl> get copyWith =>
