@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:nyakunyaku/repositories/notion_repository.dart';
@@ -18,8 +16,8 @@ void main() {
 
   test('Get Notion Databases', () async {
     NotionRepository notionRepository = NotionRepository();
-    final response = await notionRepository.getAllDatabase();
-    print(json.decode(response.body)['results'][0]['title']);
-    expect(response.statusCode, 200);
+    final databases = await notionRepository.getAllDatabase();
+    print(databases);
+    expect(databases, isNotEmpty);
   });
 }
