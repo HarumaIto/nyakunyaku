@@ -13,4 +13,11 @@ void main() {
     print(response.body);
     expect(response.statusCode, 200);
   });
+
+  test('Get Notion Databases', () async {
+    NotionRepository notionRepository = NotionRepository();
+    final databases = await notionRepository.getAllDatabase();
+    print(databases);
+    expect(databases, isNotEmpty);
+  });
 }
